@@ -1,0 +1,4 @@
+name: TpaDemo
+version: '${version}'
+author: Nipuru
+main: top.nipuru.tpademo.broker.TpaDemo

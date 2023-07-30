@@ -1,0 +1,11 @@
+name: TpaDemo
+version: '${version}'
+main: top.nipuru.tpademo.bukkit.TpaDemo
+depend: [AfyBroker]
+authors: [Nipuru]
+commands:
+  tpa:
+  tpahere:
+  tpaccept:
+  tpadeny:
+
