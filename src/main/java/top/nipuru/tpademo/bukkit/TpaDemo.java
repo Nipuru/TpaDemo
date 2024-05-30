@@ -23,12 +23,17 @@ public final class TpaDemo extends JavaPlugin {
     public final Cache<String, Location> tpCache = CacheBuilder.newBuilder()
             .expireAfterWrite(5L, TimeUnit.MINUTES)     //若五分钟内没被处理则过期
             .build();
+
     @Override
-    public void onEnable() {
-        getServer().getPluginManager().registerEvents(new PlayerSpawnLocationListener(this), this);
+    public void onLoad() {
         Broker.registerUserProcessor(new CacheOrTeleportBukkitProcessor(this));
         Broker.registerUserProcessor(new TpaRequestBukkitProcessor());
         Broker.registerUserProcessor(new TpaResponseBukkitProcessor());
+    }
+
+    @Override
+    public void onEnable() {
+        getServer().getPluginManager().registerEvents(new PlayerSpawnLocationListener(this), this);
 
         getCommand("tpa").setExecutor(new TpaCommand(this));
         getCommand("tpahere").setExecutor(new TpaHereCommand(this));
