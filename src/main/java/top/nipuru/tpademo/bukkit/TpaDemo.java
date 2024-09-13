@@ -3,6 +3,7 @@ package top.nipuru.tpademo.bukkit;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import net.afyer.afybroker.client.Broker;
+import net.afyer.afybroker.client.BrokerClientBuilder;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import top.nipuru.tpademo.bukkit.command.TpaAcceptCommand;
@@ -26,9 +27,13 @@ public final class TpaDemo extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        Broker.registerUserProcessor(new CacheOrTeleportBukkitProcessor(this));
-        Broker.registerUserProcessor(new TpaRequestBukkitProcessor());
-        Broker.registerUserProcessor(new TpaResponseBukkitProcessor());
+        Broker.buildAction(this::buildBroker);
+    }
+
+    private void buildBroker(BrokerClientBuilder builder) {
+        builder.registerUserProcessor(new CacheOrTeleportBukkitProcessor(this));
+        builder.registerUserProcessor(new TpaRequestBukkitProcessor());
+        builder.registerUserProcessor(new TpaResponseBukkitProcessor());
     }
 
     @Override
